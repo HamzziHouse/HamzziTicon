@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "@mod_id@",
+  "version": "@mod_version@",
+  "name": "@mod_name@",
+  "description": "@mod_description@",
+  "authors": [
+    "@mod_author@"
+  ],
+  "contact": {
+    "homepage": "@mod_homepage@",
+    "issues": "@mod_issues@"
+  },
+  "license": "@mod_license@",
+  "icon": "assets/@mod_id@/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "kr.hamzzihouse.hamzziticon.fabric.FabricTiconClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "fabric-api": "*",
+    "minecraft": "~1.21.11",
+    "java": ">=21"
+  }
+}

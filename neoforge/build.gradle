@@ -1,0 +1,23 @@
+plugins {
+    id "net.neoforged.moddev" version "${moddevgradle_version}"
+}
+
+neoForge {
+    version = project.neoforge_version
+
+    runs {
+        client {
+            client()
+        }
+    }
+
+    mods {
+        "${project.mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+tasks.named("jar") {
+    destinationDirectory = file("${rootDir}/target")
+}

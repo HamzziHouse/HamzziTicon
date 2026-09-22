@@ -1,0 +1,24 @@
+plugins {
+    id "fabric-loom" version "${loom_version}"
+}
+
+loom {
+    runs {
+        client {
+            client()
+            ideConfigGenerated = true
+        }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+
+    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+}
+
+tasks.named("remapJar") {
+    destinationDirectory = file("${rootDir}/target")
+}

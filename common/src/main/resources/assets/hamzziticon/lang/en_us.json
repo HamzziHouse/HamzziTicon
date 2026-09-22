@@ -1,0 +1,18 @@
+{
+  "key.category.hamzziticon.main": "HamzziTicon",
+  "key.hamzziticon.toggle": "Ticon popover (Ctrl + key in chat)",
+  "screen.hamzziticon.tab.all": "All",
+  "screen.hamzziticon.tab.favorite": "Favorites",
+  "screen.hamzziticon.hint.favorite": "Right-click: add to favorites",
+  "screen.hamzziticon.hint.unfavorite": "Right-click: remove from favorites",
+  "screen.hamzziticon.tab.recent": "Recent",
+  "screen.hamzziticon.picker": "HamzziTicon",
+  "screen.hamzziticon.button": "Open ticons",
+  "screen.hamzziticon.searching": "Search: %s",
+  "screen.hamzziticon.search": "Search ticons",
+  "screen.hamzziticon.search.hint": "Name or Hangul initials",
+  "screen.hamzziticon.footer.count": "%s items",
+  "screen.hamzziticon.notice.syncing": "Receiving ticon list from the server...",
+  "screen.hamzziticon.notice.timeout": "The server did not respond. It may not support ticons.",
+  "screen.hamzziticon.notice.unsupported": "This server does not use HamzziTicon."
+}

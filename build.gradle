@@ -1,0 +1,110 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id "java"
+    id "org.ajoberstar.grgit" version "${grgit_version}" apply false
+}
+
+def versionMetadata() {
+    def gitDir = rootProject.file(".git")
+    if (!gitDir.exists()) {
+        return "-local"
+    }
+    try {
+        def grgit = org.ajoberstar.grgit.Grgit.open(dir: rootProject.projectDir)
+        def head = grgit.head()
+        def clean = grgit.status().isClean()
+        def tagged = grgit.tag.list().any { it.commit.id == head.id }
+        grgit.close()
+        if (tagged && clean) {
+            return ""
+        }
+        return "-${head.abbreviatedId}${clean ? "" : "-dirty"}"
+    } catch (Exception ignored) {
+        return "-local"
+    }
+}
+
+clean.delete "$rootDir/target"
+
+allprojects {
+    apply plugin: "java"
+
+    group = project.mod_group
+    version = "${project.mod_version}${rootProject.versionMetadata()}"
+
+    java {
+        toolchain.languageVersion = JavaLanguageVersion.of(project.javaVersion as int)
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+        options.release = project.javaVersion as int
+        options.compilerArgs += ["-Xlint:unchecked", "-Xlint:deprecation"]
+    }
+
+    tasks.withType(Javadoc).configureEach {
+        options.encoding = "UTF-8"
+    }
+
+    repositories {
+        mavenCentral()
+        maven { name = "Fabric";    url = "https://maven.fabricmc.net/" }
+        maven { name = "NeoForged"; url = "https://maven.neoforged.net/releases" }
+    }
+
+    dependencies {
+        compileOnly "org.jetbrains:annotations:${project.jetbrains_annotations_version}"
+        compileOnly "org.projectlombok:lombok:${project.lombok_version}"
+        annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
+    }
+}
+
+subprojects { sub ->
+    if (sub.name == "common") {
+        return
+    }
+
+    apply plugin: "java"
+
+    sourceSets.main {
+        java.srcDir rootProject.project(":common").file("src/main/java")
+        resources.srcDir rootProject.project(":common").file("src/main/resources")
+    }
+
+    processResources {
+        inputs.property "mod_version", project.version
+
+        filesMatching(["fabric.mod.json", "META-INF/neoforge.mods.toml"]) {
+            filter(ReplaceTokens, tokens: [
+                    mod_id         : project.mod_id.toString(),
+                    mod_name       : project.mod_name.toString(),
+                    mod_version    : project.version.toString(),
+                    mod_description: project.mod_description.toString(),
+                    mod_author     : project.mod_author.toString(),
+                    mod_license    : project.mod_license.toString(),
+                    mod_homepage   : project.mod_homepage.toString(),
+                    mod_issues     : project.mod_issues.toString(),
+                    mod_group      : project.mod_group.toString(),
+            ])
+        }
+    }
+
+    base {
+        archivesName = "${project.mod_name}-${sub.name}"
+    }
+
+    tasks.withType(AbstractArchiveTask).configureEach {
+        archiveVersion = "${project.minecraft_version}-${project.version}"
+    }
+
+    jar {
+        manifest.attributes([
+                "Specification-Title"   : project.mod_name,
+                "Specification-Vendor"  : project.mod_author,
+                "Implementation-Title"  : project.mod_name,
+                "Implementation-Version": project.version,
+                "Implementation-Vendor" : project.mod_author,
+        ])
+    }
+}

@@ -1,0 +1,18 @@
+{
+  "key.category.hamzziticon.main": "햄찌티콘",
+  "key.hamzziticon.toggle": "티콘 팝오버 (채팅 중 Ctrl + 키)",
+  "screen.hamzziticon.tab.all": "전체",
+  "screen.hamzziticon.tab.favorite": "즐겨찾기",
+  "screen.hamzziticon.hint.favorite": "우클릭: 즐겨찾기에 추가",
+  "screen.hamzziticon.hint.unfavorite": "우클릭: 즐겨찾기에서 제거",
+  "screen.hamzziticon.tab.recent": "최근 사용",
+  "screen.hamzziticon.picker": "햄찌티콘",
+  "screen.hamzziticon.button": "티콘 열기",
+  "screen.hamzziticon.searching": "검색: %s",
+  "screen.hamzziticon.search": "티콘 검색",
+  "screen.hamzziticon.search.hint": "이름 또는 초성 (예: ㄷㅅㅌㄱ)",
+  "screen.hamzziticon.footer.count": "%s개",
+  "screen.hamzziticon.notice.syncing": "서버에서 티콘 목록을 받는 중...",
+  "screen.hamzziticon.notice.timeout": "서버가 응답하지 않습니다. 티콘을 지원하지 않는 서버일 수 있어요.",
+  "screen.hamzziticon.notice.unsupported": "이 서버는 햄찌티콘을 사용하지 않습니다."
+}

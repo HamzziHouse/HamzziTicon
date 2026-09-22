@@ -1,0 +1,7 @@
+plugins {
+    id "net.neoforged.moddev" version "${moddevgradle_version}"
+}
+
+neoForge {
+    neoFormVersion = project.neoform_version
+}
